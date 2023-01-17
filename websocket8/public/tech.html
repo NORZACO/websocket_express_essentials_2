@@ -200,17 +200,20 @@
 
   <script src="/socket.io/socket.io.js"></script>
 
-
   <script>
-    // room namespace
-    function room_TECH() {
+    function rooms_TECH() {
+      // room namespace
       const room = 'tech'
       const socket = io('/tech');
       $('form').submit(() => {
         let msg = $('#m').val()
-        socket.emit('message', { msg, room });
-        $('#m').val('');
-        return false;
+        if (msg === '') {
+          return alert("Enter the value ")
+        } else {
+          socket.emit('message', { msg, room });
+          $('#m').val('');
+          return false;
+        }
       })
 
       socket.on('connect', () => {
@@ -226,8 +229,7 @@
         //console.log(msg)
       })
     }
-room_TECH();
-
+    rooms_TECH()
   </script>
 </body>
 

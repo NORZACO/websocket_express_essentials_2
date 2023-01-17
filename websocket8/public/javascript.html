@@ -135,7 +135,7 @@
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="mb-auto">
       <div>
-        <h3 class="float-md-start mb-0"> TECH </h3>
+        <h3 class="float-md-start mb-0"> JAVASCRIPT </h3>
         <nav class="nav nav-masthead justify-content-center float-md-end">
           <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#">Home</a>
           <a class="nav-link fw-bold py-1 px-0" href="#">Features</a>
@@ -202,15 +202,20 @@
 
 
   <script>
-    // room namespace
-    function room_TECH() {
-      const room = 'tech'
-      const socket = io('/tech');
+
+    function room_JAVASCRIPT() {
+      // room namespace
+      const room = 'javascript'
+      const socket = io('/javascript');
       $('form').submit(() => {
         let msg = $('#m').val()
-        socket.emit('message', { msg, room });
-        $('#m').val('');
-        return false;
+        if (msg === '') {
+          return alert("Enter the value ")
+        } else {
+          socket.emit('message', { msg, room });
+          $('#m').val('');
+          return false;
+        }
       })
 
       socket.on('connect', () => {
@@ -226,8 +231,7 @@
         //console.log(msg)
       })
     }
-room_TECH();
-
+    room_JAVASCRIPT();
   </script>
 </body>
 
