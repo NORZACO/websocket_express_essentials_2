@@ -25,7 +25,7 @@ const tech = socketIO.of('/tech');
 
 
 app.get('/', (request, response) => {
-	response.sendFile(path.join(__dirname, 'websocket4/public/index.html'));
+	response.sendFile(path.join(__dirname, 'websocket5/public/index.html'));
 });
 
 server.listen(PORT, () => {
