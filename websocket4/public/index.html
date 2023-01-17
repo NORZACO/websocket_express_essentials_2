@@ -15,13 +15,6 @@
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cover/">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-
-
-  <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-  <!-- <link rel="stylesheet" href="./public/stylesheets/bootstrap.min.css"> -->
-
-  <!-- Custom styles for this template -->
-  <!-- <link href="./public/stylesheets/mainPage.css" rel="stylesheet"> -->
   <style>
     h1 {
       color: green;
@@ -136,8 +129,6 @@
   </style>
 </head>
 
-<!-- style="background-image: url('./public/images/why-programming-is-important.jpg'); -->
-
 <body class="d-flex h-100 text-center text-bg-light">
   <!-- style="background-image: url(./public/images/pexels-jill-wellington-39853.jpg);"> -->
 
@@ -155,11 +146,9 @@
 
     <main class="px-3">
       <h1 id="firstAlert">Cover your page.</h1>
-      <!-- <img src="./public/images/pexels-jill-wellington-39853.jpg" alt="images why programming is important"> -->
       <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit
         the
         text, and add your own fullscreen background photo to make it your own.</p>
-      <!-- <ul id="messages"> </ul> -->
       <p>Select room</p>
       <ul>
           <a class="btn btn-primary" href="/tech" role="button">Room 1</a>
@@ -185,12 +174,23 @@
 
 
       <!-- Two columns: 50% width on large and up-->
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-lg" style="background-color: rgb(227, 212, 144); color:rgb(10, 3, 3); border-color: brown;">
-          <p id="messages"> </p>
+          <p style="color: blue;" id="messages"> </p>
         </div> <br>
         <p id="messages1"> </p>
-      </div>
+      </div> -->
+
+      
+            <!-- Two columns: 50% width on large and up-->
+            <div class="row">
+              <div class="col-lg" style="background-color: rgb(227, 212, 144); color:red; border-color: brown;">
+                  <p style="color: rgb(12, 25, 204);" id="messages"> --------- messages -------- </p>
+              </div> <br>
+              <div class="col-lg" style="background-color: rgb(163, 182, 191); color:red;">
+                <p style="color: rgb(221, 16, 61);" id="messages"> --------- messages1 -------- </p>
+              </div>
+          </div>
     </main>
 
     <footer class="mt-auto text-white-50">
@@ -211,13 +211,20 @@
 
 
   <script>
-    function SendMessages(params) {
-      const socket = io();
+    function SendMessages() {
+      // room namespace
+      const socket = io('/tech');
       $('form').submit(() => {
         socket.emit('message', $('#m').val());
         $('#m').val('');
         return false;
       })
+
+      socket.on('connect', () => {
+        // emitting to everyone
+        socket.emit('message', 'user connected in the browser')
+        })
+
       // listen to message event
       socket.on('message', (msg) => {
         $('#messages').append($('<li>').text(msg));
@@ -225,22 +232,11 @@
       })
     }
     SendMessages()
-  </script>
 
-  <!-- <script>
-    const socket = io();
-    $('form').submit(() => {
-      socket.emit('message', $('#m').val());
-      $('#m').val('');
-      return false;
-    });
 
-    socket.on('message', (msg) => {
-      //$('#messages1').append($('<li>').text(msg));
-      $('#messages').append($('<li>').text(msg));
-        console.log(msg)
-    })
-  </script> -->
+
+
+  </script> 
 </body>
 
 </html>

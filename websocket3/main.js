@@ -20,21 +20,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.get('/', (request, response) => {
-    response.sendFile(path.join(__dirname, 'websocket2/public/index.html'));
+    response.sendFile(path.join(__dirname, 'websocket3/public/index.html'));
 });
 
 server.listen(PORT, () => {
     console.log('The server is listening on Port:', PORT, '\n');
 });
 // SEND 
-// socketIO.on('connection', (socket) => {
-//     console.log('connection to user succefull');
-//     socket.on('message', (msg) => {
-//         console.log(`message : ${msg}`);
-//         socketIO.emit('message', msg);
-//     })
-// })
-
 
 socketIO.on('connection', (socket) => {
     console.log('user connected');
@@ -42,19 +34,10 @@ socketIO.on('connection', (socket) => {
         console.log(`message: ${msg}`);
         socketIO.emit('message', msg);
     })
-})
 
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+        socketIO.emit('message', 'user disconnected');
+    });
+});
 
-function SendMessages(params) {
-	const socket = io();
-	$('form').submit(() => {
-	  socket.emit('message', $('#m').val());
-	  $('#m').val('');
-	  return false;
-	})
-	// listen to message event
-	socket.on('message', (msg) => {
-	  $('#messages').append($('<li>').text(msg));
-	  //console.log(msg)
-	})
-}

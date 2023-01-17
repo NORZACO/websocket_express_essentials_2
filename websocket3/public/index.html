@@ -187,7 +187,7 @@
       <!-- Two columns: 50% width on large and up-->
       <div class="row">
         <div class="col-lg" style="background-color: rgb(227, 212, 144); color:rgb(10, 3, 3); border-color: brown;">
-          <p id="messages"> </p>
+          <p style="color: blue;" id="messages"> </p>
         </div> <br>
         <p id="messages1"> </p>
       </div>
@@ -218,6 +218,12 @@
         $('#m').val('');
         return false;
       })
+
+      socket.on('connect', () => {
+        // emitting to everyone
+        socket.emit('message', 'user connected in the browser')
+        })
+
       // listen to message event
       socket.on('message', (msg) => {
         $('#messages').append($('<li>').text(msg));
@@ -225,22 +231,13 @@
       })
     }
     SendMessages()
-  </script>
 
-  <!-- <script>
-    const socket = io();
-    $('form').submit(() => {
-      socket.emit('message', $('#m').val());
-      $('#m').val('');
-      return false;
-    });
 
-    socket.on('message', (msg) => {
-      //$('#messages1').append($('<li>').text(msg));
-      $('#messages').append($('<li>').text(msg));
-        console.log(msg)
-    })
-  </script> -->
+
+
+
+
+  </script> 
 </body>
 
 </html>

@@ -1,33 +1,40 @@
-  {
-    "name": "websocket_express_essentials_2",
-    "version": "1.0.0",
-    "description": "express-essentials",
-    "main": "main.js",
-    "scripts": {
-      "start": "nodemon main.js",
-      "start1" : "nodemon websocket1/main.js",
-      "start2" : "nodemon websocket2/main.js"
-    },
-    "keywords": [],
-    "author": "Mwamuzi Shadrick",
-    "license": "ISC",
-    "devDependencies": {
-      "@babel/cli": "^7.20.7",
-      "@babel/core": "^7.20.12",
-      "@babel/node": "^7.20.7",
-      "@babel/preset-env": "^7.20.2",
-      "cookie-parser": "^1.4.6",
-      "ejs": "^3.1.8",
-      "eslint": "^8.31.0",
-      "eslint-config-airbnb-base": "^15.0.0",
-      "eslint-plugin-import": "^2.27.4",
-      "express": "^4.18.2",
-      "http-errors": "^2.0.0",
-      "morgan": "^1.3.2",
-      "pg": "^8.8.0"
-    },
-    "dependencies": {
-      "jade": "^0.29.0",
-      "socket.io": "^4.5.4"
-    }
+{
+  "name": "websocket_express_essentials_2",
+  "version": "1.0.0",
+  "description": "express-essentials",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon main.js",
+    "start1": "nodemon websocket1/main.js",
+    "start2": "nodemon websocket2/main.js",
+    "start3": "nodemon websocket3/main.js",
+    "start4": "nodemon websocket4/main.js",
+    "start5": "nodemon websocket5/main.js",
+    "start6": "nodemon websocket6/main.js",
+    "start7": "nodemon websocket7/main.js",
+    "start8": "nodemon websocket8/main.js",
+    "start9": "nodemon websocket9/main.js"
+  },
+  "keywords": [],
+  "author": "Mwamuzi Shadrick",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.8",
+    "eslint": "^8.31.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.4",
+    "express": "^4.18.2",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.3.2",
+    "pg": "^8.8.0"
+  },
+  "dependencies": {
+    "jade": "^0.29.0",
+    "socket.io": "^4.5.4"
   }
+}

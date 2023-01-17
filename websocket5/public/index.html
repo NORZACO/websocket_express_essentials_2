@@ -15,13 +15,6 @@
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cover/">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-
-
-  <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-  <!-- <link rel="stylesheet" href="./public/stylesheets/bootstrap.min.css"> -->
-
-  <!-- Custom styles for this template -->
-  <!-- <link href="./public/stylesheets/mainPage.css" rel="stylesheet"> -->
   <style>
     h1 {
       color: green;
@@ -136,8 +129,6 @@
   </style>
 </head>
 
-<!-- style="background-image: url('./public/images/why-programming-is-important.jpg'); -->
-
 <body class="d-flex h-100 text-center text-bg-light">
   <!-- style="background-image: url(./public/images/pexels-jill-wellington-39853.jpg);"> -->
 
@@ -155,24 +146,18 @@
 
     <main class="px-3">
       <h1 id="firstAlert">Cover your page.</h1>
-      <!-- <img src="./public/images/pexels-jill-wellington-39853.jpg" alt="images why programming is important"> -->
       <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit
         the
         text, and add your own fullscreen background photo to make it your own.</p>
-      <!-- <ul id="messages"> </ul> -->
       <p>Select room</p>
       <ul>
-          <a class="btn btn-primary" href="/tech" role="button">Room 1</a>
-          <a class="btn btn-success" href="/admin" role="button"> Room 2</a>
-          <a class="btn btn-success" href="/school" role="button"> School </a>
+        <a class="btn btn-primary" href="/tech" role="button">Room 1</a>
+        <a class="btn btn-success" href="/admin" role="button"> Room 2</a>
+        <a class="btn btn-success" href="/school" role="button"> School </a>
       </ul>
       <p class="lead">
         <a href="#" class="btn btn-lg btn-light fw-bold border-white bg-white">Learn more</a>
       </p>
-      <!-- 
-      <form id="form" action="">
-        <input id="m" autocomplete="off" /><button> Send </button>
-      </form> <br><br> -->
       <form action="">
         <div class="input-group">
           <input id="m" autocomplete="off" type="text" class="form-control" placeholder="Message..."
@@ -181,15 +166,19 @@
             <button class="btn btn-secondary" type="submit">Send</button>
           </span>
         </div>
-      </form><br><br>
+      </form><br><hr>
 
+      <!-- <ul style="color: #333;" class="list-group" id="messages"> </ul> -->
 
       <!-- Two columns: 50% width on large and up-->
       <div class="row">
-        <div class="col-lg" style="background-color: rgb(227, 212, 144); color:rgb(10, 3, 3); border-color: brown;">
-          <p id="messages"> </p>
-        </div> <br>
-        <p id="messages1"> </p>
+        <div class="col-lg" style="background-color: rgb(227, 212, 144); color:rgb(16, 19, 228); border-color: brown;">
+          <p style="color: rgb(12, 25, 204);" > --------- messages -------- </p>
+          <ul class="list-group"  id="messages"> </ul>
+        </div> <br><br>
+        <!-- <div class="col-lg" style="background-color: rgb(163, 182, 191); color:red;">
+          <p style="color: rgb(221, 16, 61);" id="messages1"> --------- messages1 -------- </p>
+        </div> -->
       </div>
     </main>
 
@@ -211,36 +200,34 @@
 
 
   <script>
-    function SendMessages(params) {
-      const socket = io();
+      // room namespace
+      const room = 'javascript'
+      const socket = io('/tech');
       $('form').submit(() => {
-        socket.emit('message', $('#m').val());
+        let msg = $('#m').val()
+        socket.emit('message', {msg , room });
         $('#m').val('');
         return false;
       })
+
+      socket.on('connect', () => {
+        // emitting to everyone
+        //socket.emit('message', 'user connected in the browser')
+        socket.emit('join', { room : room })
+      })
+
       // listen to message event
       socket.on('message', (msg) => {
+       $('#messages').addClass("list-group-item list-group-item-primary");
         $('#messages').append($('<li>').text(msg));
         //console.log(msg)
       })
-    }
-    SendMessages()
+  
+ 
+
+
+
   </script>
-
-  <!-- <script>
-    const socket = io();
-    $('form').submit(() => {
-      socket.emit('message', $('#m').val());
-      $('#m').val('');
-      return false;
-    });
-
-    socket.on('message', (msg) => {
-      //$('#messages1').append($('<li>').text(msg));
-      $('#messages').append($('<li>').text(msg));
-        console.log(msg)
-    })
-  </script> -->
 </body>
 
 </html>

@@ -18,43 +18,36 @@ app.set('view engine', 'ejs'); // render te ejs template
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+// namespace tech school
+const techIO = socketIO.of('/tech');
+const schoolIO = socketIO.of('/tech');
+
+
+
 
 app.get('/', (request, response) => {
-    response.sendFile(path.join(__dirname, 'websocket2/public/index.html'));
+    response.sendFile(path.join(__dirname, 'websocket4/public/index.html'));
 });
 
 server.listen(PORT, () => {
     console.log('The server is listening on Port:', PORT, '\n');
 });
 // SEND 
-// socketIO.on('connection', (socket) => {
-//     console.log('connection to user succefull');
-//     socket.on('message', (msg) => {
-//         console.log(`message : ${msg}`);
-//         socketIO.emit('message', msg);
-//     })
-// })
 
-
-socketIO.on('connection', (socket) => {
-    console.log('user connected');
-    socket.on('message', (msg) => {
-        console.log(`message: ${msg}`);
-        socketIO.emit('message', msg);
-    })
-})
-
-
-function SendMessages(params) {
-	const socket = io();
-	$('form').submit(() => {
-	  socket.emit('message', $('#m').val());
-	  $('#m').val('');
-	  return false;
-	})
-	// listen to message event
-	socket.on('message', (msg) => {
-	  $('#messages').append($('<li>').text(msg));
-	  //console.log(msg)
-	})
+function tech_ROOM(params) {
+	techIO.on('connection', (socket) => {
+	    console.log('user tech connected');
+	    socket.on('message', (msg) => {
+	        console.log(`message: ${msg}`);
+	        techIO.emit('message', msg);
+	    })
+	
+	    socket.on('disconnect', () => {
+	        console.log('user disconnected');
+	        techIO.emit('message', 'user disconnected');
+	    });
+	});
 }
+
+tech_ROOM();
+
