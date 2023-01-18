@@ -13,7 +13,8 @@
     "start6": "nodemon websocket6/main.js",
     "start7": "nodemon websocket7/main.js",
     "start8": "nodemon websocket8/main.js",
-    "start9": "nodemon websocket9/main.js"
+    "start9": "nodemon websocket9/main.js",
+    "start10" : "nodemon websocketViews/main.js"
   },
   "keywords": [],
   "author": "Mwamuzi Shadrick",
