@@ -52,4 +52,6 @@ socketIO.on('connection', (socket) => {
 
 server.listen(PORT, () => {
     console.log('The server is listening on Port:', PORT, '\n');
+    // localhost
+    console.log(`http://localhost:${PORT}/`);
 });
