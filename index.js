@@ -21,24 +21,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.get('/', (request, response) => {
-    // response.sendFile(__dirname, '/public/index.html');
-    response.sendFile(path.join(__dirname, '/public/index.html'))
-});
+// app.get('/', (request, response) => {
+//     // response.sendFile(__dirname, '/public/index.html');
+//     response.sendFile(path.join(__dirname, '/public/index.html'))
+// });
 
 
 
-app.get('/websocket1', (request, response) => {
-    response.sendFile(path.join(__dirname, '/websocket1/index.html'));
-});
+// app.get('/websocket1', (request, response) => {
+//     response.sendFile(path.join(__dirname, '/websocket1/index.html'));
+// });
 
-socketIO.on('connection', (socket) => {
-    console.log('user 1 connected');
-    socket.emit('message', { MAIN_SERVER : 'MAIN SERVER'.toLowerCase() });
-    socket.on('another event', (data) => {
-        console.log(data);
-    })
-})
+// socketIO.on('connection', (socket) => {
+//     console.log('user 1 connected');
+//     socket.emit('message', { MAIN_SERVER : 'MAIN SERVER'.toLowerCase() });
+//     socket.on('another event', (data) => {
+//         console.log(data);
+//     })
+// })
 
 
 
