@@ -169,6 +169,15 @@
           </span>
         </div>
       </form><br>
+
+      <!-- <form id="form">
+        <input id="input" type="text" placeholder="Type your message here">
+        <input id="roomInput" type="text" placeholder="Type the room name">
+        <button class="btn btn-secondary" type="submit">Send</button>
+      </form>
+      <ul id="messages"></ul>
+       -->
+
       <hr>
 
        <!-- <ul style="color: #333;" class="list-group" id="messages"> </ul> -->
@@ -220,7 +229,7 @@
       socket.on('connect', () => {
         // emitting to everyone
         //socket.emit('message', 'user connected in the browser')
-        socket.emit('join', { room: room })
+        socket.emit('join', { room : room  })
       })
 
       // listen to message event
@@ -233,7 +242,7 @@
 
 
     function admin_ROOM() {
-        const room = '<%-room%>';
+        const room = '<%- room %>';
       var socket = io('/admin');
 
       socket.on('server message', (data) => {
@@ -264,6 +273,37 @@
 
     }
     admin_ROOM()
+
+/*
+    var socket = io('/admin');
+    var form = document.getElementById('form');
+    var input = document.getElementById('input');
+    var messages = document.getElementById('messages');
+    
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var room = document.getElementById("roomInput").value;
+      if (input.value && room) {
+        var msg = input.value;
+        socket.emit('chat message', { msg, room });
+        input.value = '';
+        document.getElementById("roomInput").value = '';
+      }
+    });
+    
+    socket.on('chat message', function(msg) {
+      var item = document.createElement('li');
+      item.textContent = msg;
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+    
+    socket.on('connect', () => {
+      var room = document.getElementById("roomInput").value;
+      socket.emit('join', { room });
+    });
+    */
+
 
   </script>
 </body>

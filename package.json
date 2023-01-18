@@ -12,7 +12,8 @@
     "start5": "nodemon websocket5/main.js",
     "start6": "nodemon websocket6/main.js",
     "final": "nodemon websocket7/main.js ",
-    "test": "set DEBUG=* nodemon  websocket7/main.js  --exec babel-node -e js"
+    "test": "set DEBUG=* nodemon  websocket7/main.js  --exec babel-node -e js",
+    "templatev1" : "nodemon websocketViews/main.js"
   },
   "keywords": [],
   "author": "Mwamuzi Shadrick",
