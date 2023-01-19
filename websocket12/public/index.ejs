@@ -150,10 +150,12 @@
         the
         text, and add your own fullscreen background photo to make it your own.</p>
       <p>Select room</p>
+            <ul>
         <%rooms.forEach(function(room){ %>
           <a class="btn btn-success" href="/<%-room%>"><%- room %></a>
-        <% }); %>
+          <% }); %>
       </ul>
+
       <p class="lead">
         <a href="#" class="btn btn-lg btn-light fw-bold border-white bg-white">Learn more</a>
       </p>
@@ -168,7 +170,7 @@
       </form><br>
       <hr>
 
-       <!-- <ul style="color: #333;" class="list-group" id="messages"> </ul> -->
+      <!-- <ul style="color: #333;" class="list-group" id="messages"> </ul> -->
 
       <!-- Two columns: 50% width on large and up-->
       <div class="row">
@@ -179,7 +181,7 @@
         <!-- <div class="col-lg" style="background-color: rgb(163, 182, 191); color:red;">
           <p style="color: rgb(221, 16, 61);" id="messages1"> --------- messages1 -------- </p>
         </div> -->
-      </div> 
+      </div>
     </main>
 
     <footer class="mt-auto text-white-50">

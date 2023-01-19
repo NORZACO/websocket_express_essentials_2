@@ -53,10 +53,6 @@ app.post('/newroom', jsonParser, (req, res) => {
     }
 })
 
-// use body-parser middleware to parse JSON data in the request body
-app.use(bodyParser.json());
-
-
 
 
 

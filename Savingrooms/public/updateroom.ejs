@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Socket.IO chat</title>
+  <style>
+    body {
+      margin: 0;
+      padding-bottom: 3rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    #form {
+      background: rgba(0, 0, 0, 0.15);
+      padding: 0.25rem;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      height: 3rem;
+      box-sizing: border-box;
+      backdrop-filter: blur(10px);
+    }
+
+    #input {
+      border: none;
+      padding: 0 1rem;
+      flex-grow: 1;
+      border-radius: 2rem;
+      margin: 0.25rem;
+    }
+
+    #input:focus {
+      outline: none;
+    }
+
+    #form>button {
+      background: #333;
+      border: none;
+      padding: 0 1rem;
+      margin: 0.25rem;
+      border-radius: 3px;
+      outline: none;
+      color: #fff;
+    }
+
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #messages>li {
+      padding: 0.5rem 1rem;
+    }
+
+    #messages>li:nth-child(odd) {
+      background: #efefef;
+    }
+
+    body {
+      background-color: pink;
+    }
+
+  </style>
+</head>
+
+<body>
+  <ul id="messages"></ul>
+  <form id="form" action="">
+    <input id="input" autocomplete="off" /><button>Send</button>
+  </form>
+<br><br>
+
+
+<p>Select room</p>
+
+<ul>
+  <%chat_room.forEach(function(room){ %>
+    <a href="/<%-room %>"><%- room %></a>
+  <% }); %>
+</ul>
+
+  <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+      
+    //const room = '<%-chat_room%>';
+
+    var socket = io();
+    var messages = $('#messages');
+    var form = $('#form');
+    var input = $('#input');
+
+    form.on('submit', function (e) {
+      e.preventDefault();
+      if (input.val()) {
+        socket.emit('chat-message', input.val());
+        input.val('');
+      }
+    });
+
+    socket.on('chat-message', function (msg) {
+      var item = $('<li>').text(msg);
+      messages.append(item);
+      $(window).scrollTop($(document).height());
+    });
+
+  </script>
+</body>
+
+</html>
