@@ -9,113 +9,84 @@ const server = http.createServer(app);
 const socketIO = new Server(server);
 const logger = require('morgan');  // npm i morgan --save-dev
 const PORT = process.env.PORT || 3000
+
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.set('view engine', 'ejs'); // render te ejs template
+app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.post('/getroom', jsonParser, (req, res) => {
-    const room = req.body.room;
-    app.get('/' + room, (req, res) => {
-        res.render(__dirname + '/room.ejs', {room: room});
-    });
 
-    res.send({'room': room});
+
+
+
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+
+app.use(express.static("public"));
+
+
+
+
+socketIO.on('connection', (socket) => {
+  console.log('a user connected');
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
+
+socketIO.on('connection', (socket) => {
+  socket.on('chat-message', (msg) => {
+    console.log(`message: ${msg}`);
+  });
+});
+
+
+socketIO.on('connection', (socket) => {
+  socket.on('chat-message', (msg) => {
+    socketIO.emit('chat-message', msg);
+  });
+});
+
+
+
+app.post('/newroom', jsonParser, (req, res) => {
+  const room = req.body.room;
+  app.get('/' + room, (req, res) => {
+    res.render(__dirname + '/public/room.ejs', { room: room });
+  });
+  res.send({
+    'room': room
+  });
 })
 
 
 
 
-
-function V1(params) {
-	app.post('/newroom', jsonParser, (req, res) => {
-	    // Get the room name from the request body
-	    const room = req.body.room;
-	      // Get the color name from the request body
-	    const color = 'req.body.color;'
-	    // Object of color and room
-	    const roomColor = {
-	        'room': room,
-	        'color': color
-	    };
-	
-	
-	    // Add a new route for the room
-	    app.get('/' + roomColor.room, (req, res) => {
-	        // Render the room.ejs file and pass in the room name as a parameter
-	        res.render(__dirname + 'public/room.ejs', { 
-                room: roomColor.room,
-                color: roomColor.color
-            });
-	    });
-	
-	    // Send a response with the room name
-	    res.send({
-	        'room': roomColor.room,
-	        'color': roomColor.color
-	    });
-	});
-}
-
-
-// app.get('/room1', (req, res) => {
-//     res.render(__dirname + '/public/room.ejs', {room: 'room1'});
+// app.get('/:room1', (request, response) => {
+//   response.render(__dirname + '/public/index.ejs', { room: request.room1 });
 // });
 
-// app.get('/room2', (req, res) => {
-//     res.render(__dirname + '/public/room.ejs', {room: 'room2'});
-// });
-
-
-
-app.post('/newroom', jsonParser, (req, res) => {
-    // Get the room name and color from the request body
-    const room = req.body.room;
-    const color = req.body.color || 'white'; // Default color is white if none is provided
-
-    // Add a new route for the room
-    app.get('/' + room, (req, res) => {
-        // Render the room.ejs file and pass in the room name and color as parameters
-        res.render(__dirname + '/public/room.ejs', {room: room, color: color});
-    });
-
-    // Send a response with the room name and color
-    res.send({
-        'room': room,
-        'color': color
-    });
-});
-
-// Existing GET handlers for '/room1' and '/room2' should remain unchanged
-app.get('/', (req, res) => {
-    res.render(__dirname + '/public/room.ejs', {room: 'room1'});
-});
 app.get('/room2', (req, res) => {
-    res.render(__dirname + '/public/room.ejs', {room: 'room2'});
+  res.render(__dirname + '/public/index.ejs', { room: 'room2' });
 });
 
 
-
-
-
-
-// // add class
-// $('#messages').addClass("list-group-item list-group-item-primary");
-// // add color
-// $('#messages').css('background-color', 'red');
-// // add color to odd
-// $('#messages li:odd').css('background-color', 'red');
-
-
-
-
+app.get('/home', (req, res) => {
+  res.render(__dirname + '/public/index.ejs', { room: 'room2' });
+});
 
 
 
@@ -124,7 +95,8 @@ app.get('/room2', (req, res) => {
 
 
 server.listen(PORT, () => {
-    console.log('The server is listening on Port:', PORT, '\n');
+  console.log('The server is listening on Port:', PORT, '\n');
+  console.log('go to the http://127.0.0.1:3000');
 });
 
 

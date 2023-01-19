@@ -66,6 +66,16 @@
   <form id="form" action="">
     <input id="input" autocomplete="off" /><button>Send</button>
   </form>
+<br><br>
+
+
+<p>Select room</p>
+<ul>
+    <a href="/room1">Room 1</a>
+    <a href="/room2">Room 2</a>
+</ul>
+
+
 
   <!-- <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -110,8 +120,10 @@
 
 
   <script>
-    var socket = io();
+      
+    const room = '<%-room%>';
 
+    var socket = io();
     var messages = $('#messages');
     var form = $('#form');
     var input = $('#input');
