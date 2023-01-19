@@ -49,16 +49,18 @@ app.get('/room4', (req, res) => {
 
 // TEMPLATE ENGINE
 app.get('/', (req, res) => {
-    res.render(__dirname +  '/public/index.ejs', {room: 'stue'});
+    res.render(__dirname +  '/public/index.ejs', {rooms: rooms});
 });
 
-
+let rooms = ['room1', 'room2']
 // POST NEWROOT && GET NEWROOM \\ USING POSTMAN + BODY + JSON { room : newroom }
+//While creating a new room, we add the new name to the array. We do this by pushing new room to the rooms array (6th line in the code below):
 app.post('/newroom', jsonParser, (req, res) => {
     const room = req.body.room;
     app.get('/' + room, (req, res) => {
-        res.render(__dirname + '/public/index.ejs', { room: room });
+        res.render(__dirname + '/public/index.ejs', {room: room});
     });
+    rooms.push(room);
     res.send({
         'room': room
     });

@@ -15,6 +15,8 @@
     "start8": "nodemon websocket8/main.js",
     "start9": "nodemon websocket9/main.js",
     "start10": "nodemon websocket10/main.js",
+    "start11": "nodemon websocket11/main.js",
+    "start12": "nodemon websocket12/main.js",
     "final": "nodemon websocket7/main.js ",
     "test": "set DEBUG=* nodemon  websocket7/main.js  --exec babel-node -e js",
     "templatev1": "nodemon websocketViews/main.js",

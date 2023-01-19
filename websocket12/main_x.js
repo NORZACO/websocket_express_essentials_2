@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const fs = require('fs')
 const http = require('http');
 const path = require('path');
 const createError = require('http-errors'); // npm install http-errors --save-dev
@@ -18,51 +19,61 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.set('view engine', 'ejs'); // render te ejs template
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 // namespace tech school javascript
 const administration = socketIO.of("/admin");
 
-
-
-
-app.get('/home', (request, response) => {
-    response.sendFile(path.join(__dirname, '/public/home.html'));
-});
-
-app.get('/room1', (request, response) => {
-    response.sendFile(path.join(__dirname, '/public/room1.html'));
-});
-
-
-app.get('/room2', (request, response) => {
-    response.sendFile(path.join(__dirname, '/public/room2.html'));
-});
-
-app.get('/room3', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/room3.html'));
-});
-
-app.get('/room4', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/room4.html'));
-});
-
+let rooms = JSON.parse(fs.readFileSync('./rooms.json', 'utf-8'));
+//console.log(rooms);
 // TEMPLATE ENGINE
-app.get('/', (req, res) => {
-    res.render(__dirname +  '/public/index.ejs', {room: 'stue'});
+app.get('/v1', (req, res) => {
+    res.render(__dirname +  '/public/index.ejs', {rooms: rooms});
 });
 
-
-// POST NEWROOT && GET NEWROOM \\ USING POSTMAN + BODY + JSON { room : newroom }
 app.post('/newroom', jsonParser, (req, res) => {
     const room = req.body.room;
     app.get('/' + room, (req, res) => {
-        res.render(__dirname + '/public/index.ejs', { room: room });
+        res.render(__dirname + '/public/index.ejs', {room: room});
     });
-    res.send({
-        'room': room
-    });
+
+    if(!rooms.includes(req.body.room)) {
+        rooms.push(room);
+        if(req.body.save) {
+            let rooms = JSON.parse(fs.readFileSync('./rooms.json', 'utf-8'));
+            const newRooms =  rooms.concat([req.body.room])
+            fs.writeFileSync("./rooms.json", JSON.stringify(newRooms));
+        }
+        res.send({
+            'room': room
+        });
+    }
+    else {
+        res.send({
+            'error': 'room already exist'
+        })
+    }
 })
+
+// use body-parser middleware to parse JSON data in the request body
+app.use(bodyParser.json());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
