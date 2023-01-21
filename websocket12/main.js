@@ -27,7 +27,6 @@ app.get('/v1 ', (req, res) => {
     res.render(__dirname +  '/public/index.ejs', {room: 'rooms'});
 });
 
-
 // read json file
 
 // const dataJSON = JSON.parse(data);
